@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Каталог товаров</h2>
+
+{% if current_user.is_superuser %}
+    <a href="{{ url_for('products.add') }}" class="btn btn-primary">Добавить товар</a>
+{% endif %}
+
+{% for category, products in categories.items() %}
+    <h3>{{ category }}</h3>
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <h4>{{ product.name }}</h4>
+            <p>Цена: {{ product.price }} руб.</p>
+            <a href="{{ url_for('products.product_detail', product_id=product.id) }}" class="btn btn-primary">
+              Подробнее
+            </a>
+            {% if product.coverage and product.coverage > 0 %}
+                <p>Расход: {{ product.coverage_per_unit }} м²/{{ product.unit_type }}</p>
+            {% endif %}
+            {% if current_user.is_superuser %}
+                <div class="actions">
+                    <a href="{{ url_for('products.edit', product_id=product.id) }}" class="btn btn-secondary">Редактировать</a>
+                    <a href="{{ url_for('products.delete', id=product.id) }}"
+               class="btn btn-danger"
+               onclick="return confirm('Удалить товар?')">Удалить</a>
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+{% endfor %}
+{% endblock %}

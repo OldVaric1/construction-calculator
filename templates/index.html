@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero">
+    <h2>Добро пожаловать в Строительный калькулятор!</h2>
+    <p>Рассчитывайте количество материалов и стоимость ремонта онлайн</p>
+    <div class="cta-buttons">
+        <a href="{{ url_for('products.list') }}" class="btn">Каталог товаров</a>
+        <a href="{{ url_for('products.calculator') }}" class="btn">Открыть калькулятор</a>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Регистрация</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.username.label(class="form-label") }}
+        {{ form.username(class="form-input") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.password.label(class="form-label") }}
+        {{ form.password(class="form-input") }}
+    </div>
+
+    <div class="form-group">
+        {{ form.confirm_password.label(class="form-label") }}
+        {{ form.confirm_password(class="form-input") }}
+    </div>
+    <div>
+        {{ form.submit(class='btn btn-primary') }}
+    </div>
+</form>
+
+
+<p>Уже есть аккаунт?<a href="{{ url_for('auth.login') }}" class="btn btn-secondary">Войдите</a></p>
+{% endblock %}

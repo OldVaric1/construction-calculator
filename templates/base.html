@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Строительный калькулятор</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Строительный калькулятор</h1>
+        <nav>
+            <div class="theme-toggle">
+              <span>☀️</span>
+              <label class="switch">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider round"></span>
+              </label>
+              <span>🌙</span>
+            </div>
+            <a href="{{ url_for('products.list') }}">Товары</a>
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="calculatorDropdown"
+                   role="button" data-bs-toggle="dropdown"><font color="white">Калькулятор ▾</font></a>
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ url_for('calculator.mix_calculator') }}">Расчёт сухих смесей</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('calculator.siding_calculator') }}">Расчёт сайдинга</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('calculator.fence_calculator') }}">Расчёт забора</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('calculator.roof_calculator') }}">Расчёт кровли</a></li>
+                </ul>
+            </div>
+                {% if current_user.is_authenticated %}
+                    <!-- Выпадающий список для суперпользователя -->
+                        {% if current_user.is_authenticated and current_user.is_superuser %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle"><font color="white">Дашборд ▾</font></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{ url_for('products.add') }}">
+                                ➕ Добавить товар
+                            </a>
+                                </li>
+                            </ul>
+                        </li>
+                        {% endif %}
+                <a href="#">Привет, {{ current_user.username }}</a>
+
+
+                <a href="{{ url_for('auth.logout') }}">Выйти</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}">Войти</a>
+                <a href="{{ url_for('auth.register') }}">Регистрация</a>
+            {% endif %}
+
+        </nav>
+
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+<script src="{{ url_for('static', filename='js/theme-switcher.js') }}"></script>
+
+</body>
+</html>
