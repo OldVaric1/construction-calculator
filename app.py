@@ -60,4 +60,21 @@ if __name__ == '__main__':
             db.session.commit()
     app.run(debug=True)
 
+# Создаём приложение для WSGI
 app = create_app()
+
+# Создаём таблицы и суперпользователя при запуске, если их нет
+with app.app_context():
+    from extensions import db
+    from models import User
+    from sqlalchemy import select
+    
+    # Создаём все таблицы, если они ещё не существуют
+    db.create_all()
+    
+    # Создаём суперпользователя, если нет ни одного
+    if not db.session.scalars(select(User)).first():
+        superuser = User(username='admin', is_superuser=True)
+        superuser.set_password('admin123')
+        db.session.add(superuser)
+        db.session.commit()
