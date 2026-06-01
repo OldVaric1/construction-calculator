@@ -172,31 +172,33 @@ position: relative;
 display: inline-block;
 }
 
+/* Выпадающее меню */
 .dropdown-menu {
   position: absolute;
-  background: #2c3e50; /* Светлый фон меню */
+  top: 100%;
+  left: 0;
+  background: #2c3e50;
   border-radius: 5px;
   min-width: 200px;
   list-style: none;
   padding: 0;
   margin: 0;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 
-  /* Скрываем меню через прозрачность и позицию */
-  display: block;
+  /* Полное ��крытие */
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  pointer-events: none; /* Запрещаем взаимодействие со скрытым меню */
+  pointer-events: none;
 }
 
 .dropdown-menu.show {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  pointer-events: auto; /* Разрешаем взаимодействие с видимым меню */
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
 }
 
 /* Гарантируем читаемость текста внутри меню */
@@ -392,3 +394,13 @@ img {
 
 /* Отладка — временно добавьте, чтобы увидеть границы */
 /* .file-input-label { outline: 2px dashed red; } */
+
+.form-control {
+    max-height: 150px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    margin-top: 10px;
+}

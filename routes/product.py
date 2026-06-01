@@ -80,7 +80,6 @@ def add():
     return render_template('products/add.html', form=form)
 
 
-
 @products_bp.route('/edit/<int:product_id>', methods=['GET', 'POST'])
 @login_required
 @admin_required
@@ -89,20 +88,32 @@ def edit(product_id):
     form = ProductForm(obj=product)
 
     if form.validate_on_submit():
-        # Сначала заполняем все поля из формы
+        # Сохраняем старое имя изображения на случай, если новое не будет загружено
+        old_image = product.image
+
+        # Сначала заполняем все поля из формы, включая image (которое может стать None)
         form.populate_obj(product)
 
-        # Затем обрабатываем изображение — если загружено новое, обновляем
-        new_image = save_uploaded_file(form.image.data, current_app.config['UPLOAD_FOLDER'])
-        if new_image is not None:
-            product.image = new_image
+        # Обрабатываем загрузку нового изображения
+        image_file = request.files['image']
+        if image_file and image_file.filename:
+            new_image_filename = save_uploaded_file(image_file, current_app.config['UPLOAD_FOLDER'])
+            if new_image_filename:
+                product.image = new_image_filename
+            else:
+                product.image = old_image
+        else:
+            product.image = old_image
 
         db.session.commit()
         flash('Товар успешно обновлён!', 'success')
         return redirect(url_for('products.list'))
 
-    return render_template('products/edit.html', form=form, product=product)
+    # Если форма не прошла валидацию, можно вывести ошибки для отладки
+    if form.errors:
+        print(f"Ошибки валидации формы: {form.errors}")
 
+    return render_template('products/edit.html', form=form, product=product)
 
 
 @products_bp.route('/delete/<int:id>')

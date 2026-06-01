@@ -1,0 +1,27 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.flaskenv
+instance/
+*.log
+
+# Статические файлы (не сохранять загруженные изображения)
+static/images/*.jpg
+static/images/*.png
+static/images/*.jpeg
+
+# База данных
+site.db
+*.sqlite
+
+# IDE
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+dist/
+build/
+*.egg-info/

@@ -38,42 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdowns = document.querySelectorAll('.dropdown');
 
-    dropdowns.forEach(dropdown => {
-        const menu = dropdown.querySelector('.dropdown-menu');
-
-        dropdown.addEventListener('mouseenter', () => {
-            if (menu) menu.classList.add('show');
-        });
-
-        dropdown.addEventListener('mouseleave', () => {
-            if (menu) menu.classList.remove('show');
-        });
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  const dropdowns = document.querySelectorAll('.dropdown');
-
-  dropdowns.forEach(dropdown => {
-    const menu = dropdown.querySelector('.dropdown-menu');
-
-    // Показываем меню при наведении на родительский блок
-    dropdown.addEventListener('mouseenter', () => {
-      if (menu) {
-        menu.classList.add('show');
-      }
-    });
-
-    // Скрываем меню при уходе курсора с родительского блока
-    dropdown.addEventListener('mouseleave', () => {
-      if (menu) {
-        menu.classList.remove('show');
-      }
-    });
-  });
-});
 
 

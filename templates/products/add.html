@@ -38,6 +38,13 @@
             <div class="form-group">
                 {{ form.image.label(class="form-label") }}
                 {{ form.image(class="form-input") }}
+                    <div class="file-input-wrapper">
+                    {{ form.image(class="form-input", id="image-upload", accept="image/*") }}
+                    <label for="image-upload" class="file-input-label">
+                        Выбрать новое изображение
+                    </label>
+                </div>
+
 
             </div>
             <div>

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms import StringField, FloatField, SelectField, SubmitField
+from wtforms import StringField, FloatField, SelectField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, NumberRange
 
 
@@ -32,6 +32,9 @@ class ProductForm(FlaskForm):
         choices=[('м²', 'м² (квадратный метр)'), ('п.м.', 'п.м. (погонный метр)')],
         validators=[DataRequired()]
     )
+
+    description = TextAreaField("Описания товара", validators=[DataRequired()])
+
     package_weight = StringField('Вес упаковки (кг)', default=30)
     image = FileField('Фото товара', validators=[
                 FileAllowed(['jpg', 'png', 'jpeg'], 'Только изображения!')

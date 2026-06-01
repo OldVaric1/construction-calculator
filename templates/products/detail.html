@@ -2,20 +2,39 @@
 {% block content %}
 <div class="product-detail">
 
-    <img
-        src="{{ url_for('static', filename='images/' ~ (product.image or 'default.jpg')) }}"
-        alt="{{ product.name }}"
-        class="product-image"
-    >
+    <h1>{{ product.name }}</h1>
 
-    <div class="product-info">
-        <h2>{{ product.name }}</h2>
+    {% if product.image %}
+        <img src="{{ url_for('static', filename='images/' ~ product.image) }}"
+             alt="{{ product.name }}" class="product-image">
+    {% else %}
+        <p>Изображение отсутствует</p>
+    {% endif %}
 
-        <div class="price-block">
-            <span class="price">{{ product.price }} руб. за шт.</span>
+        <div class="product-info">
+            <p><strong>Цена:</strong> {{ product.price }} руб.</p>
+            <p><strong>Категория:</strong> {{ product.category }}</p>
+            <p><strong>Единица измерения:</strong> {{ product.unit_type }}</p>
+            <p><strong>Расход на единицу:</strong> {{ product.coverage_per_unit }}</p>
+            <p><strong>Вес упаковки:</strong> {{ product.package_weight }} кг</p>
+
+            <!-- ПОЛЕ ОПИСАНИЯ ДЛЯ ПРОСМОТРА -->
+            <div class="description-section">
+                <h3>Описание товара</h3>
+                {% if product.description %}
+                    <p>{{ product.description }}</p>
+                {% else %}
+                    <p>У товара нет описания</p>
+                {% endif %}
+            </div>
         </div>
 
         <button class="btn btn-primary">В карзину</button>
+        {% if current_user.is_authenticated and current_user.is_superuser %}
+            <a href="{{ url_for('products.edit', product_id=product.id) }}" class="btn btn-primary">Редактировать</a>
+        {% endif %}
+
+        <a href="{{ url_for('products.list') }}" class="btn btn-secondary">Назад к списку</a>
     </div>
 </div>
 {% endblock %}

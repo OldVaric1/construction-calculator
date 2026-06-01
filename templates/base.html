@@ -21,29 +21,24 @@
             </div>
             <a href="{{ url_for('products.list') }}">Товары</a>
             <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="calculatorDropdown"
-                   role="button" data-bs-toggle="dropdown"><font color="white">Калькулятор ▾</font></a>
-                 <ul class="dropdown-menu">
+                <a class="nav-link dropdown-toggle" href="#" id="calculatorDropdown" role="button"><font color="white">Калькулятор ▾</font></a>
+                <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{{ url_for('calculator.mix_calculator') }}">Расчёт сухих смесей</a></li>
-            <li><a class="dropdown-item" href="{{ url_for('calculator.siding_calculator') }}">Расчёт сайдинга</a></li>
-            <li><a class="dropdown-item" href="{{ url_for('calculator.fence_calculator') }}">Расчёт забора</a></li>
-            <li><a class="dropdown-item" href="{{ url_for('calculator.roof_calculator') }}">Расчёт кровли</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('calculator.siding_calculator') }}">Расчёт сайдинга</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('calculator.fence_calculator') }}">Расчёт забора</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('calculator.roof_calculator') }}">Расчёт кровли</a></li>
                 </ul>
             </div>
                 {% if current_user.is_authenticated %}
                     <!-- Выпадающий список для суперпользователя -->
-                        {% if current_user.is_authenticated and current_user.is_superuser %}
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle"><font color="white">Дашборд ▾</font></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="{{ url_for('products.add') }}">
-                                ➕ Добавить товар
-                            </a>
-                                </li>
-                            </ul>
-                        </li>
-                        {% endif %}
+                {% if current_user.is_authenticated and current_user.is_superuser %}
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle"><font color="white">Дашборд ▾</font></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('products.add') }}">➕ Добавить товар</a></li>
+                    </ul>
+                </div>
+                {% endif %}
                 <a href="#">Привет, {{ current_user.username }}</a>
 
 
@@ -69,6 +64,7 @@
         {% block content %}{% endblock %}
     </main>
 
+<script src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
 <script src="{{ url_for('static', filename='js/theme-switcher.js') }}"></script>
 
 </body>

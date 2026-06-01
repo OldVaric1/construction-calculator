@@ -9,6 +9,7 @@ def save_uploaded_file(file_data, upload_folder):
         if file_data.filename == '':
             return None
         filename = secure_filename(file_data.filename)
+        print(filename)
 
         try:
             os.makedirs(upload_folder, exist_ok=True)

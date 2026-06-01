@@ -9,6 +9,7 @@ class Product(db.Model):
     coverage_per_unit = db.Column(db.Float, nullable=False) # Расход на единицу
     package_weight = db.Column(db.Float, default=30) # Вес упаковки
     image = db.Column(db.String(100), nullable=True, default='default.jpg')
+    description = db.Column(db.Text, nullable=True) # Описания товара
 
     def __repr__(self):
         return f'<Product {self.name}>'
