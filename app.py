@@ -59,3 +59,5 @@ if __name__ == '__main__':
             db.session.add(superuser)
             db.session.commit()
     app.run(debug=True)
+
+app = create_app()
